@@ -57,7 +57,7 @@ You can connect to your MCP server from the Cloudflare AI Playground, which is a
 
 ## Connect Claude Desktop to your MCP server
 
-You can also connect to your remote MCP server from local MCP clients, by using the [mcp-remote proxy](https://www.npmjs.com/package/mcp-remote). 
+You can also connect to your remote MCP server from local MCP clients, by using the [mcp-remote proxy](https://www.npmjs.com/package/mcp-remote).
 
 To connect to your MCP server from Claude Desktop, follow [Anthropic's Quickstart](https://modelcontextprotocol.io/quickstart/user) and within Claude Desktop go to Settings > Developer > Edit Config.
 
@@ -77,4 +77,18 @@ Update with this configuration:
 }
 ```
 
-Restart Claude and you should see the tools become available. 
+Restart Claude and you should see the tools become available.
+
+## Use the MCP Inspector CLI
+
+The Inspector CLI expects server definitions to live in a JSON config file. The repo includes a ready-to-use example at [`inspector.config.json`](./inspector.config.json) that targets the local development Worker on `http://localhost:8787/mcp`.
+
+Start the Worker (`npm start`) in one terminal, then launch the Inspector in another:
+
+```bash
+npx @modelcontextprotocol/inspector \
+  --config inspector.config.json \
+  --server entrez-local
+```
+
+Use `--server` to pick the entry from the config file. To test against a deployed Worker, duplicate the `entrez-local` block in `inspector.config.json` and update the `url` accordingly.
